@@ -17,6 +17,7 @@ This document describes the final submission package, methodology, and execution
   - [Repository Layout](#repository-layout)
   - [Data Acquisition](#data-acquisition)
   - [Panel Construction](#panel-construction)
+    - [Prerequisites](#prerequisites)
     - [1. Command](#1-command)
     - [2. Parameters (`panel_build.yaml`)](#2-parameters-panel_buildyaml)
     - [3. Process Summary](#3-process-summary)
@@ -112,8 +113,8 @@ Notes:
 
 ### Prerequisites
 
-Repositories do not carry the raw Kaggle CSVs nor the intermediate panel files (`data/panel_with_raw.pkl`, `panel_with_features.pkl`, `panel_imputed.pkl`) because they exceed GitHub's 100 MB limit.
-Before training or inference, download the raw data (see [Data Acquisition](#data-acquisition)) and rebuild the panel using the command below. The process is deterministic; no random seeds are consumed in `build_panel.py`.
+**Repositories do not carry the raw Kaggle CSVs nor the intermediate panel files (`data/panel_with_raw.pkl`, `panel_with_features.pkl`, `panel_imputed.pkl`) because they exceed GitHub's 100 MB limit.
+Before training or inference, download the raw data (see [Data Acquisition](#data-acquisition)) and rebuild the panel using the command below. The process is deterministic; no random seeds are consumed in `build_panel.py`.**
 
 ### 1. Command
 
@@ -356,7 +357,7 @@ Optional flags:
 
 ## Reproducibility Notes
 
-- The configuration sets `seed: 888888` and propagates it to Python `random`, NumPy, and individual models.  
+- The configuration sets `seed: 8888` and propagates it to Python `random`, NumPy, and individual models.  
 - **Nevertheless, retraining yields different results.**  
   1. GPU algorithms (LightGBM, XGBoost, CatBoost) rely on atomic operations whose accumulation order changes between runs.  
   2. Multi-threaded execution (GPU or CPU) alters floating-point summation order.  
