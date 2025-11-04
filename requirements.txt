@@ -1,0 +1,16 @@
+catboost==1.2.8
+kaggle==1.6.17
+joblib==1.5.1
+lightgbm==4.6.0
+matplotlib==3.10.6
+numpy==2.3.3
+optuna==3.6.1
+pandas==2.3.2
+pyarrow==21.0.0
+pypinyin==0.51.0
+PyYAML==6.0.2
+scikit-learn==1.7.2
+scipy==1.16.0
+statsmodels==0.14.5
+tqdm==4.67.1
+xgboost==3.0.5

@@ -1,0 +1,8 @@
+{
+  "best_params_path": "D:\\User\\桌面\\Nathan\\side_project\\Kaggle_Real-Estate-Demand-Prediction\\v4\\models\\lightgbm_best_params.json",
+  "model_path": "D:\\User\\桌面\\Nathan\\side_project\\Kaggle_Real-Estate-Demand-Prediction\\v4\\models\\lightgbm_final.pkl",
+  "best_score": 0.9305597184016495,
+  "validation_score": 0.9306071891979804,
+  "train_samples": 5433,
+  "timestamp": "2025-11-02T06:46:24.890703+00:00"
+}

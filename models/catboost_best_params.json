@@ -1,0 +1,10 @@
+{
+  "depth": 10,
+  "learning_rate": 0.03139767950934088,
+  "l2_leaf_reg": 12.523601239684574,
+  "bagging_temperature": 2.670661702503495,
+  "grow_policy": "Lossguide",
+  "iterations": 2348,
+  "task_type": "GPU",
+  "bootstrap_type": "Bayesian"
+}

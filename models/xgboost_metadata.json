@@ -1,0 +1,8 @@
+{
+  "best_params_path": "D:\\User\\桌面\\Nathan\\side_project\\Kaggle_Real-Estate-Demand-Prediction\\v4\\models\\xgboost_best_params.json",
+  "model_path": "D:\\User\\桌面\\Nathan\\side_project\\Kaggle_Real-Estate-Demand-Prediction\\v4\\models\\xgboost_final.pkl",
+  "best_score": 0.9336230832833585,
+  "validation_score": 0.9336230832833585,
+  "train_samples": 5433,
+  "timestamp": "2025-11-02T06:56:42.043366+00:00"
+}

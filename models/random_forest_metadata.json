@@ -1,0 +1,8 @@
+{
+  "best_params_path": "D:\\User\\桌面\\Nathan\\side_project\\Kaggle_Real-Estate-Demand-Prediction\\v4\\models\\random_forest_best_params.json",
+  "model_path": "D:\\User\\桌面\\Nathan\\side_project\\Kaggle_Real-Estate-Demand-Prediction\\v4\\models\\random_forest_final.pkl",
+  "best_score": 0.8175388770092067,
+  "validation_score": 0.8175388770092067,
+  "train_samples": 5433,
+  "timestamp": "2025-11-02T08:32:54.761326+00:00"
+}

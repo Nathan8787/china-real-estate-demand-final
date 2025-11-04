@@ -1,0 +1,19 @@
+{
+  "model_names": [
+    "lightgbm",
+    "xgboost",
+    "catboost",
+    "random_forest"
+  ],
+  "weights": [
+    0.3025,
+    0.1168, 
+    0.5807,
+    0.0
+  ],
+  "score": 0.9429443212850628,
+  "uniform_score": 0.9197632406934769,
+  "solver_success": true,
+  "solver_message": "Optimization terminated successfully",
+  "timestamp": "2025-11-02T08:32:54.781355+00:00"
+}

@@ -1,0 +1,12 @@
+{
+  "learning_rate": 0.0068943445470870295,
+  "num_leaves": 100,
+  "max_depth": 11,
+  "min_child_samples": 36,
+  "colsample_bytree": 0.7141851787435185,
+  "reg_alpha": 0.013086903356596276,
+  "reg_lambda": 0.3782486104034811,
+  "min_split_gain": 0.0004846930349816455,
+  "n_estimators": 1002,
+  "device_type": "gpu"
+}

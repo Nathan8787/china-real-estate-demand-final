@@ -1,0 +1,103 @@
+seed: 8888
+train_end_month: "2024-07-01"
+target_column: "nh_amount_new_house_transactions"
+features_path: "artifacts/selected_features.txt"
+panel_path: "data/panel_selected.parquet"
+artifacts_dir: "models"
+logs_dir: "logs"
+
+log_transform:
+  enabled: true
+  epsilon: 1e-3
+
+prediction_clipping:
+  enabled: true
+  min_value: 0.0
+
+weights:
+  enabled: true
+  strategy: "exponential"   # {"none", "exponential", "linear"}
+  half_life_months: 12
+  linear_min_ratio: 0.1
+
+target_encoding:
+  enabled: true
+  column: "sector_id"
+  output_column: "sector_te"
+  mapping_path: "models/sector_te_mapping.json"
+  handle_unknown: 0.0
+
+cv:
+  minimum_training_months: 18
+  folds:
+    - {train_end: "2022-06-01", valid_start: "2022-07-01", valid_end: "2022-12-01"}
+    - {train_end: "2022-12-01", valid_start: "2023-01-01", valid_end: "2023-06-01"}
+    - {train_end: "2023-06-01", valid_start: "2023-07-01", valid_end: "2023-12-01"}
+    - {train_end: "2023-12-01", valid_start: "2024-01-01", valid_end: "2024-06-01"}
+    - {train_end: "2024-06-01", valid_start: "2024-07-01", valid_end: "2024-08-01"}
+
+models:
+  - name: "lightgbm"
+    optimizer:
+      n_trials: 40
+      timeout: null
+    params:
+      learning_rate: {type: "loguniform", low: 0.003, high: 0.15}
+      num_leaves: {type: "int", low: 31, high: 255}
+      max_depth: {type: "int", low: 4, high: 12}
+      min_child_samples: {type: "int", low: 20, high: 200}
+      colsample_bytree: {type: "uniform", low: 0.6, high: 1.0}
+      reg_alpha: {type: "loguniform", low: 1e-4, high: 5.0}
+      reg_lambda: {type: "loguniform", low: 1e-4, high: 5.0}
+      min_split_gain: {type: "loguniform", low: 1e-4, high: 0.5}
+      n_estimators: {type: "int", low: 500, high: 2500}
+      device_type: {type: "categorical", choices: ["gpu"]}
+
+  - name: "xgboost"
+    optimizer:
+      n_trials: 40
+    params:
+      learning_rate: {type: "loguniform", low: 0.003, high: 0.15}
+      max_depth: {type: "int", low: 3, high: 12}
+      min_child_weight: {type: "loguniform", low: 1e-3, high: 10}
+      colsample_bytree: {type: "uniform", low: 0.6, high: 1.0}
+      gamma: {type: "loguniform", low: 1e-4, high: 5.0}
+      reg_alpha: {type: "loguniform", low: 1e-4, high: 8.0}
+      reg_lambda: {type: "loguniform", low: 1e-4, high: 8.0}
+      n_estimators: {type: "int", low: 500, high: 2500}
+      tree_method: {type: "categorical", choices: ["hist"]}
+      device: {type: "categorical", choices: ["cuda"]}
+
+  - name: "catboost"
+    optimizer:
+      n_trials: 40
+    params:
+      depth: {type: "int", low: 3, high: 12}
+      learning_rate: {type: "loguniform", low: 0.003, high: 0.15}
+      l2_leaf_reg: {type: "loguniform", low: 1.0, high: 20.0}
+      bagging_temperature: {type: "uniform", low: 0.0, high: 3.0}
+      grow_policy: {type: "categorical", choices: ["Depthwise", "Lossguide"]}
+      iterations: {type: "int", low: 300, high: 2500}
+      task_type: {type: "categorical", choices: ["GPU"]}
+      bootstrap_type: {type: "categorical", choices: ["Bayesian"]}
+
+  - name: "random_forest"
+    optimizer:
+      n_trials: 1
+    params:
+      n_estimators: {type: "int", low: 300, high: 1500}
+      max_depth: {type: "int", low: 4, high: 18}
+      min_samples_split: {type: "int", low: 2, high: 20}
+      min_samples_leaf: {type: "int", low: 1, high: 10}
+      max_features: {type: "categorical", choices: ["sqrt", "log2", 0.6, 0.8, 1.0]}
+      bootstrap: {type: "categorical", choices: [true, false]}
+      criterion: {type: "categorical", choices: ["squared_error", "poisson"]}
+
+ensemble:
+  optimization:
+    method: "constrained"
+    solver: "scipy"
+    max_iter: 1000
+  weight_bounds: [0.0, 1.0]
+  initial_weights: [0.25, 0.25, 0.25, 0.25]
+  save: "ensemble_weights.json"
